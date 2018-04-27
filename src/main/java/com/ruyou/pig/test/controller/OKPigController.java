@@ -10,17 +10,16 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 @Controller
-public class TestController {
+public class OKPigController {
     // 变  st0  st3 st4 st5
     @RequestMapping("/ok_pig_svg_scan")
-    public String ok_pig_img(HttpServletResponse response, PigConfig config) {
+    public void ok_pig_img(HttpServletResponse response, PigConfig config) {
         try {
             String svg = PigCompontManager.getInstance().getPig(true, config);
             response.getWriter().write(svg);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
     @RequestMapping("/ok_pig_svg")
