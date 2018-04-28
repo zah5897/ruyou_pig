@@ -59,7 +59,9 @@ public class PigCompontManager {
     }
 
     private List<Base> initCompont(PigConfig config) {
+
         List<Base> bases = new ArrayList<>();
+        //注意顺序
         bases.add(new Ear(config));
         bases.add(new Body(config));
         bases.add(new Dupi(config));

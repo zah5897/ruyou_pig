@@ -4,6 +4,7 @@ import com.ruyou.pig.test.compont.CompontCacheManager;
 import com.ruyou.pig.test.compont.PigCompontManager;
 import com.ruyou.pig.test.compont.PigConfig;
 import com.ruyou.pig.test.utils.FileUitl;
+import com.ruyou.pig.test.utils.TextUtils;
 
 import java.io.File;
 
@@ -24,7 +25,7 @@ public abstract class Base {
     protected String getCompontSvgXml(int index) {
         String name = this.getClass().getSimpleName().toLowerCase();
         String content = CompontCacheManager.getInstance().get(name + index);
-        if (content != null) {
+        if (TextUtils.isNotEmpty(content)) {
             return content;
         } else {
             String path = PigCompontManager.getInstance().getRootPath() + "pig_compont/" + name + "/" + index + ".txt";
