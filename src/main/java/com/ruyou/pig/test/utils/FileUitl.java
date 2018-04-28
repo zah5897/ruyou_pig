@@ -10,7 +10,6 @@ import java.nio.channels.FileChannel;
  */
 public class FileUitl {
     public static String readFile(File file) {
-
         BufferedReader br = null;
         InputStreamReader inr = null;
         InputStream inputStream = null;
@@ -46,4 +45,40 @@ public class FileUitl {
         }
         return null;
     }
+
+    public static void readFile(File file, ColorUtil.LineCallback callback) {
+        BufferedReader br = null;
+        InputStreamReader inr = null;
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(file);
+            inr = new InputStreamReader(inputStream, "UTF-8");
+            br = new BufferedReader(inr);
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                if (callback != null) {
+                    callback.onLine(line);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                inr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

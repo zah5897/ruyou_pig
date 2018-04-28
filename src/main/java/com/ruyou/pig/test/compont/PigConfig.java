@@ -4,7 +4,7 @@ package com.ruyou.pig.test.compont;
  * Created by zah on 2018/4/27.
  */
 public class PigConfig {
-    private int body;
+    private int hw;
     private int nose;
     private int eye;
     private int ear;
@@ -14,14 +14,6 @@ public class PigConfig {
     private String bodyColor;
     private String hwColor;
     private String dupiColor;
-
-    public int getBody() {
-        return body;
-    }
-
-    public void setBody(int body) {
-        this.body = body;
-    }
 
     public int getNose() {
         return nose;
@@ -87,10 +79,18 @@ public class PigConfig {
         this.dupi = dupi;
     }
 
+    public int getHw() {
+        return hw;
+    }
+
+    public void setHw(int hw) {
+        this.hw = hw;
+    }
+
     @Override
     public String toString() {
         return "PigConfig{" +
-                "body=" + body +
+                "hw=" + hw +
                 ", nose=" + nose +
                 ", eye=" + eye +
                 ", ear=" + ear +

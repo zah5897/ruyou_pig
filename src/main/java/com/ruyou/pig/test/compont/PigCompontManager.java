@@ -8,6 +8,7 @@ import com.ruyou.pig.test.utils.RandomUtil;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,16 +28,20 @@ public class PigCompontManager {
     }
 
     public void initSvgFream() {
+        //初始化svg框架片段
         String freamPath = getRootPath();
         CompontCacheManager.getInstance().put(svgName, FileUitl.readFile(new File(freamPath + svgName)).trim());
         CompontCacheManager.getInstance().put(svgName_scan, FileUitl.readFile(new File(freamPath + svgName_scan)).trim());
+
+        //初始化颜色
+        ColorUtil.initPigColor(freamPath);
     }
 
     public String getRootPath() {
         if (OSUtil.isLinux()) {
-            return this.getClass().getResource("/").getPath() + "static/";
+            return this.getClass().getResource("/").getPath() + "static/pig_compont/";
         } else {
-            return "D:\\eth_pig\\ruyou_pig\\src\\main\\resources\\static\\";
+            return "D:\\eth_pig\\ruyou_pig\\src\\main\\resources\\static\\pig_compont\\";
         }
     }
 
@@ -50,9 +55,6 @@ public class PigCompontManager {
         //添加svg
         sb.append(getCompontSvg(componts));
 
-        //添加结束标签
-        //显示猪的信息
-        sb.append("<text x=\"200\" y=\"50\" text-anchor=\"middle\" dominant-baseline=\"middle\">" + config.toString() + "</text>");
 
         sb.append("\n</svg>");
         return sb.toString();
@@ -62,12 +64,22 @@ public class PigCompontManager {
 
         List<Base> bases = new ArrayList<>();
         //注意顺序
+        Bg bg = new Bg(config);
+        List<String> ignoreColor = Arrays.asList(new String[]{config.getDupiColor(), config.getHwColor(), config.getBodyColor(), config.getEyeColor()});
+        bg.setBgColor(CompontCacheManager.getInstance().getLightColor(ignoreColor));
+        bases.add(bg);
+        bases.add(new Shadow(config));
+
         bases.add(new Ear(config));
         bases.add(new Body(config));
         bases.add(new Dupi(config));
+
+        bases.add(new HuaWen(config));
+
         bases.add(new Eye(config));
         bases.add(new Hand(config));
         bases.add(new Nose(config));
+        bases.add(new Text(config));
         return bases;
     }
 
@@ -76,7 +88,6 @@ public class PigCompontManager {
         StringBuilder styles = new StringBuilder();
         styles.append("<style type=\"text/css\">");
         styles.append("\n");
-        styles.append(".pig_shadow{fill:#C7C7C7;}");
 
         for (Base base : componts) {
             styles.append("\n");
@@ -105,8 +116,8 @@ public class PigCompontManager {
 
     public synchronized String getPig(boolean scan, PigConfig config) {
 
-        if (config.getBody() < 1 || config.getBody() > 8) {
-            config.setBody(RandomUtil.getRandomBetween(1, 8));
+        if (config.getHw() < 1 || config.getHw() > 8) {
+            config.setHw(RandomUtil.getRandomBetween(1, 8));
         }
 
         if (config.getDupi() < 1 || config.getDupi() > 8) {
@@ -126,22 +137,24 @@ public class PigCompontManager {
         }
 
 
-        if (ColorUtil.isNotColor(config.getBodyColor())) {
-            config.setBodyColor(ColorUtil.getRandColorCode());
-        }
+        List<String> ignoreColors = null;
+        String body = CompontCacheManager.getInstance().getLightColor(ignoreColors);
+        config.setBodyColor(body);
 
-        if (ColorUtil.isNotColor(config.getHwColor())) {
-            config.setHwColor(ColorUtil.getRandColorCode());
-        }
+        ignoreColors = new ArrayList<>();
+        ignoreColors.add(body);
+
+        String dupi = CompontCacheManager.getInstance().getLightColor(ignoreColors);
+        config.setDupiColor(dupi);
+        ignoreColors.add(dupi);
 
 
-        if (ColorUtil.isNotColor(config.getDupiColor())) {
-            config.setDupiColor(ColorUtil.getRandColorCode());
-        }
+        String eyecolor = CompontCacheManager.getInstance().getColor(ignoreColors);
+        config.setEyeColor(eyecolor);
+        ignoreColors.add(eyecolor);
 
-        if (ColorUtil.isNotColor(config.getEyeColor())) {
-            config.setEyeColor(ColorUtil.getRandColorCode());
-        }
+        config.setHwColor(CompontCacheManager.getInstance().getColor(ignoreColors));
+
         return PigCompontManager.getInstance().getPigSvg(scan, config);
     }
 

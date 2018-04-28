@@ -1,6 +1,7 @@
 package com.ruyou.pig.test.compont.svg;
 
 import com.ruyou.pig.test.compont.PigConfig;
+import com.ruyou.pig.test.utils.ColorUtil;
 
 /**
  * Created by zah on 2018/4/27.
@@ -18,7 +19,10 @@ public class Ear extends Base {
                 String color = config.getBodyColor();
                 style.append(".p_1_ear_color{fill:" + color + ";}");
                 style.append("\n");
-                style.append(".p_1_ear_shadow_color{fill:" + color + ";}");
+
+                color = ColorUtil.getShadowColor();
+
+                style.append(".p_1_ear_shadow_color{fill:" + color + ";fill-opacity:0.2;}");
                 break;
             case 2:
 
@@ -26,7 +30,8 @@ public class Ear extends Base {
                 style.append(".p_2_ear_color{fill:" + color + ";}");
                 style.append("\n");
 
-                style.append(".p_2_ear_shadow_color{fill:" + color + ";}");
+                color = ColorUtil.getShadowColor();
+                style.append(".p_2_ear_shadow_color{fill:" + color + ";fill-opacity:0.2;}");
                 style.append("\n");
 
                 break;
@@ -36,7 +41,8 @@ public class Ear extends Base {
                 style.append(".p_3_ear_color{fill:" + color + ";}");
                 style.append("\n");
 
-                style.append(".p_3_ear_shadow_color{fill:" + color + ";}");
+                color = ColorUtil.getShadowColor();
+                style.append(".p_3_ear_shadow_color{fill:" + color + ";fill-opacity:0.2;}");
                 style.append("\n");
 
                 break;
@@ -52,8 +58,8 @@ public class Ear extends Base {
                 style.append(".p_5_ear_color{fill:" + color + ";}");
                 style.append("\n");
 
-
-                style.append(".p_5_ear_shadow_color{fill:" + color + ";}");
+                color = ColorUtil.getShadowColor();
+                style.append(".p_5_ear_shadow_color{fill:" + color + ";fill-opacity:0.2;}");
                 style.append("\n");
                 break;
             case 6:
@@ -61,8 +67,8 @@ public class Ear extends Base {
                 style.append(".p_6_ear_color{fill:" + color + ";}");
                 style.append("\n");
 
-
-                style.append(".p_6_ear_shadow_color{fill:" + color + ";}");
+                color = ColorUtil.getShadowColor();
+                style.append(".p_6_ear_shadow_color{fill:" + color + ";fill-opacity:0.2;}");
                 style.append("\n");
                 break;
             case 7:
@@ -76,7 +82,8 @@ public class Ear extends Base {
                 style.append(".p_8_ear_color{fill:" + color + ";}");
                 style.append("\n");
 
-                style.append(".p_8_ear_shadow_color{fill:" + color + ";}");
+                color = ColorUtil.getShadowColor();
+                style.append(".p_8_ear_shadow_color{fill:" + color + ";fill-opacity:0.2;}");
                 style.append("\n");
                 break;
         }

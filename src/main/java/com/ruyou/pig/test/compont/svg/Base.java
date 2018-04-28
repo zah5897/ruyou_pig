@@ -28,7 +28,7 @@ public abstract class Base {
         if (TextUtils.isNotEmpty(content)) {
             return content;
         } else {
-            String path = PigCompontManager.getInstance().getRootPath() + "pig_compont/" + name + "/" + index + ".txt";
+            String path = PigCompontManager.getInstance().getRootPath() + name + "/" + index + ".txt";
             content = FileUitl.readFile(new File(path));
             CompontCacheManager.getInstance().put(name + index, content);
             return content;
